@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html ng-app="Moon">
+  <head>
+    <title>Moon</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <style>
+      html {
+        color: white;
+        background-color: black;
+      }
+      .menu {
+        text-align: right;
+      }
+
+      /* entire container, keeps perspective */
+      .flip-container {
+        perspective: 1000;
+      }
+        /* flip the pane when hovered */
+        .flip-container:hover .flipper, .flip-container.hover .flipper {
+          transform: rotateY(180deg);
+        }
+
+      .flip-container, .front, .back {
+        width: 200px;
+        height: 150px;
+        float: left;
+        padding: 25px 0;
+      }
+
+      /* flip speed goes here */
+      .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+        position: relative;
+      }
+
+      /* hide back of pane during swap */
+      .front, .back {
+        backface-visibility: hidden;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
+        border: 1px solid #333;
+      }
+
+      /* front pane, placed above back */
+      .front {
+        z-index: 2;
+        /* for firefox 31 */
+        transform: rotateY(0deg);
+      }
+
+      /* back, initially hidden pane */
+      .back {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body ng-controller="PhasesCtrl">
+    <p></p>
+    <h1>Moon</h1>
+    <h3>Phases</h3>
+    <p class="menu"><a href="#">Grid</a> | <a href="#">Card</a></p>
+    <!-- ontouchstart="this.classList.toggle('hover');" -->
+    <div class="calendar flip-container" ng-repeat="phase in phases">
+      <div class="flipper">
+        <div class="front">
+          <img ng-src='http://www.imooncal.com/cs/i/1_m{{ $index }}.jpg' />
+          <p>{{ phase.number }}</p>
+        </div>
+        <div class="back">
+          <p>{{ phase.name }}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  function zeroPad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
+  }
+
+  var app = angular.module('Moon', []);
+
+  app.controller('PhasesCtrl', function($scope){
+    var phaseNames = ["New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full",
+          "Waning Gibbous", "Third Quarter", "Waning Crescent"];
+    $scope.phases = [];
+    for (var i=0; i <= 30; i++){
+      var phase = { index: i, number: zeroPad(i, 3) },
+          phaseIndex = parseInt(i / 4);
+
+      phase.name = phaseNames[phaseIndex];
+      $scope.phases.push(phase);
+    }
+  });
+
+</script>
