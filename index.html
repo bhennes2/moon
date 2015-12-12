@@ -4,61 +4,7 @@
   <head>
     <title>Moon</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <style>
-      html {
-        color: white;
-        background-color: black;
-      }
-      .menu {
-        text-align: right;
-      }
-
-      /* entire container, keeps perspective */
-      .flip-container {
-        perspective: 1000;
-      }
-        /* flip the pane when hovered */
-        .flip-container:hover .flipper, .flip-container.hover .flipper {
-          transform: rotateY(180deg);
-        }
-
-      .flip-container, .front, .back {
-        width: 200px;
-        height: 150px;
-        float: left;
-        padding: 25px 0;
-      }
-
-      /* flip speed goes here */
-      .flipper {
-        transition: 0.6s;
-        transform-style: preserve-3d;
-        position: relative;
-      }
-
-      /* hide back of pane during swap */
-      .front, .back {
-        backface-visibility: hidden;
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        text-align: center;
-        border: 1px solid #333;
-      }
-
-      /* front pane, placed above back */
-      .front {
-        z-index: 2;
-        /* for firefox 31 */
-        transform: rotateY(0deg);
-      }
-
-      /* back, initially hidden pane */
-      .back {
-        transform: rotateY(180deg);
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body ng-controller="PhasesCtrl">
     <p></p>
