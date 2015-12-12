@@ -10,9 +10,9 @@
     <p></p>
     <h1>Moon</h1>
     <h3>Phases</h3>
-    <p class="menu"><a href="#">Grid</a> | <a href="#">Card</a></p>
+    <p class="menu"><a ng-click="toggleLayout('grid')" href="#">Grid</a> | <a ng-click="toggleLayout('card')" href="#">Card</a></p>
     <!-- ontouchstart="this.classList.toggle('hover');" -->
-    <div class="calendar flip-container" ng-repeat="phase in phases">
+    <div class="flip-container" ng-repeat="phase in phases">
       <div class="flipper">
         <div class="front">
           <img ng-src='http://www.imooncal.com/cs/i/1_m{{ $index }}.jpg' />
@@ -46,6 +46,12 @@
       phase.name = phaseNames[phaseIndex];
       $scope.phases.push(phase);
     }
+    $scope.layout = 'grid';
+
+    $scope.toggleLayout = function(){
+
+    };
+
   });
 
 </script>
