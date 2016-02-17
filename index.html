@@ -5,13 +5,14 @@
     <title>Moon</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004404/current_moon.js"></script>
+    <script src="js/moon.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body ng-controller="PhasesCtrl">
     <p></p>
     <h1>Moon</h1>
     <h3>Phases</h3>
+    <img id='moon_image' src='' alt="Moon" />
     <p class="menu"><a ng-click="toggleLayout('grid')" href="#">Grid</a> | <a ng-click="toggleLayout('card')" href="#">Card</a></p>
     <div ontouchstart="this.classList.toggle('hover');" class="flip-container" ng-repeat="phase in phases">
       <div class="flipper">
@@ -29,6 +30,16 @@
 </html>
 
 <script>
+
+  var fn = "000" + moon_imagenum;
+      fn = fn.slice( fn.length - 4 );
+   var domain = "http://svs.gsfc.nasa.gov",
+      path = "/vis/a000000/a004400/a004404/";
+
+   var url = [domain, path, 'frames/730x730_1x1_30p/moon.', fn, '.jpg'];
+
+   var element = document.getElementById('moon_image');
+   element.src = url.join('');
 
   function zeroPad(num, places) {
     var zero = places - num.toString().length + 1;
