@@ -12,7 +12,6 @@
     <p></p>
     <h1>Moon</h1>
     <h3>Phases</h3>
-    <img id='moon_image' src='' alt="Moon" />
     <p class="menu"><a ng-click="toggleLayout('grid')" href="#">Grid</a> | <a ng-click="toggleLayout('card')" href="#">Card</a></p>
     <div ontouchstart="this.classList.toggle('hover');" class="flip-container" ng-repeat="phase in phases">
       <div class="flipper">
@@ -22,7 +21,7 @@
         </div>
         <div class="back">
           <p>{{ phase.name }}</p>
-          <img class="moon-pic" ng-src='./images/m_{{ $index }}.jpg' />
+          <img class="moon-pic" ng-src='{{ phase.url }}' />
         </div>
       </div>
     </div>
@@ -31,15 +30,16 @@
 
 <script>
 
-  var fn = "000" + moon_imagenum;
-      fn = fn.slice( fn.length - 4 );
-   var domain = "http://svs.gsfc.nasa.gov",
-      path = "/vis/a000000/a004400/a004404/";
+  function moon_url(date){
+    get_moon_imagenum(date);
+    console.log(moon_imagenum);
+    var fn = "000" + moon_imagenum;
+        fn = fn.slice( fn.length - 4 );
+     var domain = "http://svs.gsfc.nasa.gov",
+        path = "/vis/a000000/a004400/a004404/";
 
-   var url = [domain, path, 'frames/730x730_1x1_30p/moon.', fn, '.jpg'];
-
-   var element = document.getElementById('moon_image');
-   element.src = url.join('');
+    return [domain, path, 'frames/730x730_1x1_30p/moon.', fn, '.jpg'].join('');
+  }
 
   function zeroPad(num, places) {
     var zero = places - num.toString().length + 1;
@@ -57,6 +57,9 @@
           phaseIndex = parseInt(i / 4);
 
       phase.name = phaseNames[phaseIndex];
+      var date = new Date();
+      date = date.getTime() + 24*3600*1000*i;
+      phase.url = moon_url(new Date(date));
       $scope.phases.push(phase);
     }
     $scope.layout = 'grid';

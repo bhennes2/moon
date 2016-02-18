@@ -21,9 +21,9 @@ Initialize the frame number.  If the current date is within the year
 start of the year.  Otherwise it's 1.
 ====================================================================== */
 
-function get_moon_imagenum()
+function get_moon_imagenum(date)
 {
-   var now = new Date();
+   var now = date || new Date();
    var year = now.getUTCFullYear();
    if ( year != 2016 ) {
       moon_imagenum = 1;
